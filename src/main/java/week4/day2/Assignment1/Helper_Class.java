@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
@@ -37,6 +38,8 @@ public class Helper_Class {
             elements = driver.findElements(By.className(identifier));
         }else if(identifierType.equalsIgnoreCase("tag")){
             elements = driver.findElements(By.tagName(identifier));
+        }else if(identifierType.equalsIgnoreCase("xpath")){
+            elements = driver.findElements(By.xpath(identifier));
         }
         return elements;
     }
@@ -59,5 +62,13 @@ public class Helper_Class {
     public static void elementClick(ChromeDriver driver,String identifierType,String identifier){
         WebElement element = getElement(identifierType, identifier, driver );
         element.click();
+    }
+    public static void selectDropdown(ChromeDriver driver,String identifierType,String identifier, String value){
+        Select dropdown = new Select(getElement(identifierType, identifier, driver ));
+        dropdown.selectByVisibleText(value);
+    }
+    public static String getText(ChromeDriver driver, String identifierType, String identifier){
+        WebElement element = getElement(identifierType, identifier, driver);
+        return element.getAttribute("value");
     }
 }
