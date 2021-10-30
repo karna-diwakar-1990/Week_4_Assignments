@@ -5,8 +5,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 public class Helper_Class {
@@ -52,7 +55,9 @@ public class Helper_Class {
     public static void moveToAndClickElement(ChromeDriver driver, String identifierType, String identifier){
         WebElement element = getElement(identifierType, identifier, driver);
         Actions action = new Actions(driver);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         action.moveToElement(element).build().perform();
+        wait.until(ExpectedConditions.elementToBeClickable(element));
         action.click(element).build().perform();
     }
     public static void enterText(ChromeDriver driver,String identifierType,String identifier, String input){
